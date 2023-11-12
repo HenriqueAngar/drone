@@ -16,17 +16,15 @@ public class User {
     @Column(name = "senha")
     private String senha;
     @NotNull
-    @Column(name = "status")
-    private String status;
+    @Column(name = "role")
+    private String role;
 
-    public User() {
-    }
 
     public User(Long id, String nome, String senha, String status) {
         this.id = id;
         this.nome = nome;
         this.senha = senha;
-        this.status = status;
+        this.role = role;
     }
 
     public Long getId() {
@@ -56,12 +54,12 @@ public class User {
         return this;
     }
 
-    public String getStatus() {
-        return status;
+    public String getRole() {
+        return role;
     }
 
     public User setStatus(String status) {
-        this.status = status;
+        this.role = role;
         return this;
     }
 }

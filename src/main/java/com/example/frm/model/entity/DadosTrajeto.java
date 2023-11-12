@@ -2,12 +2,14 @@ package com.example.frm.model.entity;
 
 import jakarta.persistence.*;
 
+import javax.validation.constraints.NotNull;
+
 @Entity
 @Table(name = "dados_trajeto")
 public class DadosTrajeto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  Long id;
+    private  Long idTrajeto;
     @Column(name = "latitude_partida")
     private Double latitudePartida;
     @Column(name = "longitude_partida")
@@ -25,11 +27,13 @@ public class DadosTrajeto {
     @Column(name = "velocidade")
     private Double velocidade;
 
-    public DadosTrajeto() {
-    }
+    @NotNull
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "rota", referencedColumnName = "idRota")
+    private long rota;
 
     public DadosTrajeto(Long id, Double latitudePartida, Double longitudePartida, Double altitudePartida, Double latitudeChegada, Double longitudeChegada, Double altitudeChegada, Double distancia, Double velocidade) {
-        this.id = id;
+        this.idTrajeto = id;
         this.latitudePartida = latitudePartida;
         this.longitudePartida = longitudePartida;
         this.altitudePartida = altitudePartida;
@@ -41,11 +45,11 @@ public class DadosTrajeto {
     }
 
     public Long getId() {
-        return id;
+        return idTrajeto;
     }
 
     public DadosTrajeto setId(Long id) {
-        this.id = id;
+        this.idTrajeto = idTrajeto;
         return this;
     }
 
