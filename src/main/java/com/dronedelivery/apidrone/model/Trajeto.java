@@ -1,6 +1,7 @@
 package com.dronedelivery.apidrone.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 
 @Entity
@@ -17,6 +18,7 @@ public class Trajeto {
 
     @Column(name = "distancia")
     private Double distancia;
+
     @Column(name = "velocidade")
     private Double velocidade;
 

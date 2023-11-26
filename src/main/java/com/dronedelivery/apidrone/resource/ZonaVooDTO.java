@@ -1,30 +1,24 @@
-package com.dronedelivery.apidrone.model;
+package com.dronedelivery.apidrone.resource;
 
-import jakarta.persistence.*;
+import com.dronedelivery.apidrone.model.Location;
+import com.dronedelivery.apidrone.model.TipoZonaVoo;
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotNull;
 
-@Entity
-@Table(name = "zonavoo")
-public class ZonaVoo {
+public class ZonaVooDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idZonaVoo;
 
-    @NotNull
-    @Column(name = "raio")
+
     public double raio;
 
-    @NotNull
-    @Column(name = "altura")
+
     public double altura;
 
-    @NotNull
-    @Column(name = "tipo")
+
     public TipoZonaVoo zonaVoo;
 
-    @NotNull
-    @Column(name = "posicao")
+
     public Location posicao;
 
     public Long getIdZonaVoo() {

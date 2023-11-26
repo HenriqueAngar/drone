@@ -22,7 +22,7 @@ public class Entrega extends Location{
     @Column
     private StatusEntrega status;
 
-    @NotNull
+
     @Column(name = "obs")
     private String obs;
 

@@ -3,6 +3,8 @@ package com.dronedelivery.apidrone.model;
 public enum StatusDrone {
 
     CAIDO,
+    DESLIGADO,
+    DISPONÍVEL,
     INOPERANTE,
     FORA_DE_ALCANCE,
     MANUTENCAO,

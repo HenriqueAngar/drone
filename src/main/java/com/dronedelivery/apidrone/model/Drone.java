@@ -23,6 +23,9 @@ public class Drone extends Location{
     @Column(name = "posicao")
     private Location posicao;
 
+    @Column(name = "destino")
+    private Location destino;
+
     @NotNull
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "entrega", referencedColumnName = "idEntrega")
@@ -58,6 +61,14 @@ public class Drone extends Location{
 
     public void setPosicao(Location posicao) {
         this.posicao = posicao;
+    }
+
+    public Location getDestino() {
+        return destino;
+    }
+
+    public void setDestino(Location destino) {
+        this.destino = destino;
     }
 
     public long getEntrega() {

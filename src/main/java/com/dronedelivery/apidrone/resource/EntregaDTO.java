@@ -20,13 +20,13 @@ public class EntregaDTO {
     private Long idEntrega;
 
     private String nome;
-    @NotNull
+
     private Float peso;
 
-    @NotNull
+
     private StatusEntrega status;
 
-    @NotNull
+
     private String obs;
 
 

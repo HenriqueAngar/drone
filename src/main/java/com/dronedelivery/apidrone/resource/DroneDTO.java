@@ -1,5 +1,7 @@
 package com.dronedelivery.apidrone.resource;
 
+import com.dronedelivery.apidrone.model.Drone;
+import com.dronedelivery.apidrone.model.drone;
 import com.dronedelivery.apidrone.model.Location;
 import com.dronedelivery.apidrone.model.StatusDrone;
 import jakarta.persistence.CascadeType;
@@ -7,6 +9,11 @@ import jakarta.persistence.Column;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class DroneDTO {
 
@@ -17,7 +24,7 @@ public class DroneDTO {
 
     private Location posicao;
 
-    private long entrega;
+    private long drone;
 
     public Long getIdDrone() {
         return idDrone;
@@ -51,11 +58,13 @@ public class DroneDTO {
         this.posicao = posicao;
     }
 
-    public long getEntrega() {
-        return entrega;
+    public long getdrone() {
+        return drone;
     }
 
-    public void setEntrega(long entrega) {
-        this.entrega = entrega;
+    public void setdrone(long drone) {
+        this.drone = drone;
     }
+
+
 }

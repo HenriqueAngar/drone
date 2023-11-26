@@ -3,7 +3,6 @@ package com.dronedelivery.apidrone.resource;
 import com.dronedelivery.apidrone.entreprise.NotFoundException;
 import com.dronedelivery.apidrone.model.Entrega;
 import com.dronedelivery.apidrone.services.EntregaService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
