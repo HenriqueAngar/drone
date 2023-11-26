@@ -23,7 +23,7 @@ public class EntregaService {
 
     public Entrega salvar(Entrega entity) {
 
-    
+
 
         return repo.save(entity);
     }
