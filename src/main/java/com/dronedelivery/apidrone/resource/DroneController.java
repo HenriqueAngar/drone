@@ -1,3 +1,4 @@
+//NEW DRONE CONTROLLER
 package com.dronedelivery.apidrone.resource;
 
 import com.dronedelivery.apidrone.entreprise.NotFoundException;
@@ -13,58 +14,77 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("/api/Drones")
-public class DroneController extends AbstractController {
+public class DroneController {
 
     @Autowired
     private DroneService service;
 
     @PostMapping
-    public ResponseEntity create(@RequestBody @Validated Drone entity) {
-        Drone save = service.salvar(entity);
-        return ResponseEntity.created(URI.create("/api/Drones/" + entity.getIdDrone())).body(save);
+    public ResponseEntity<DroneDTO> create(@RequestBody @Validated Drone entity) {
+        Drone savedDrone = service.salvar(entity);
+        DroneDTO droneDTO = DroneDTO.fromEntity(savedDrone);
+        URI location = URI.create("/api/Drones/" + savedDrone.getIdDrone());
+        return ResponseEntity.created(location).body(droneDTO);
     }
 
     @GetMapping
-    public ResponseEntity findAll(@RequestParam(required = false) String filter,
-                                  @RequestParam(defaultValue = "0") int page,
-                                  @RequestParam(defaultValue = "10") int size) {
-        Page<Drone> Drones = service.buscaTodos(filter, PageRequest.of(page, size));
-        Page<DroneDTO> DroneDTOS = DroneDTO.fromEntity(Drones);
-        return ResponseEntity.ok(DroneDTOS);
+    public ResponseEntity<Page<DroneDTO>> findAll(@RequestParam(required = false) String filter,
+                                                  @RequestParam(defaultValue = "0") int page,
+                                                  @RequestParam(defaultValue = "10") int size) {
+        Page<Drone> drones = service.buscaTodos(filter, PageRequest.of(page, size));
+        Page<DroneDTO> droneDTOS = DroneDTO.fromEntity(drones);
+        return ResponseEntity.ok(droneDTOS);
     }
 
     @GetMapping("{id}")
-    public ResponseEntity findById(@PathVariable("id") Long id) {
-        Drone Drone = service.buscaPorId(id);
-        return ResponseEntity.ok(Drone);
+    public ResponseEntity<DroneDTO> findById(@PathVariable("id") Long id) {
+        Drone drone = service.buscaPorId(id);
+        DroneDTO droneDTO = DroneDTO.fromEntity(drone);
+        return ResponseEntity.ok(droneDTO);
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity remove(@PathVariable("id") Long id) {
+    public ResponseEntity<Void> remove(@PathVariable("id") Long id) {
         service.remover(id);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("{id}")
-    public ResponseEntity update(@PathVariable("id") Long id, @RequestBody Drone entity) {
+    public ResponseEntity<DroneDTO> update(@PathVariable("id") Long id, @RequestBody Drone entity) {
         try {
-            Drone alterado = service.alterar(id, entity);
-            return ResponseEntity.ok().body(alterado);
+            Drone droneAlterado = service.alterar(id, entity);
+            DroneDTO droneDTO = DroneDTO.fromEntity(droneAlterado);
+            return ResponseEntity.ok(droneDTO);
         } catch (NotFoundException nfe) {
             return ResponseEntity.noContent().build();
         }
     }
 
-    private class DroneService {
+    @RestController
+    @RequestMapping("/api/Drones")
+    private static class DroneService {
+
         public Drone salvar(Drone entity) {
+            // Implemente a lógica real de salvamento
             return null;
         }
 
         public void remover(Long id) {
-
+            // Implemente a lógica real de remoção
         }
 
         public Page<Drone> buscaTodos(String filter, PageRequest of) {
+            // Implemente a lógica real de busca paginada
+            return null;
+        }
+
+        public Drone buscaPorId(Long id) {
+            // Implemente a lógica real de busca por ID
+            return null;
+        }
+
+        public Drone alterar(Long id, Drone entity) throws NotFoundException {
+            // Implemente a lógica real de atualização
             return null;
         }
     }

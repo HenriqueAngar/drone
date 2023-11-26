@@ -6,6 +6,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
+import org.hibernate.query.Page;
+import org.springframework.data.domain.PageImpl;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 public class TrajetoDTO {

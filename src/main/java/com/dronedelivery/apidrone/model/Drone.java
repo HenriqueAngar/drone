@@ -81,4 +81,7 @@ public class Drone extends Location{
 
     public long getDrone() {
     }
+
+    public void setDrone(Drone drone) {
+    }
 }
