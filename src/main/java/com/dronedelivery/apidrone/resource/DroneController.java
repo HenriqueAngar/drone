@@ -1,9 +1,7 @@
 package com.dronedelivery.apidrone.resource;
 
 import com.dronedelivery.apidrone.entreprise.NotFoundException;
-import com.dronedelivery.apidrone.model.Entrega;
-import com.dronedelivery.apidrone.services.EntregaService;
-import jakarta.validation.Valid;
+import com.dronedelivery.apidrone.model.Drone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,31 +12,31 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 
 @RestController
-@RequestMapping("/api/Entregas")
-public class EntregaController extends AbstractController {
+@RequestMapping("/api/Drones")
+public class DroneController extends AbstractController {
 
     @Autowired
-    private EntregaService service;
+    private DroneService service;
 
     @PostMapping
-    public ResponseEntity create(@RequestBody @Validated Entrega entity) {
-        Entrega save = service.salvar(entity);
-        return ResponseEntity.created(URI.create("/api/Entregas/" + entity.getIdEntrega())).body(save);
+    public ResponseEntity create(@RequestBody @Validated Drone entity) {
+        Drone save = service.salvar(entity);
+        return ResponseEntity.created(URI.create("/api/Drones/" + entity.getIdDrone())).body(save);
     }
 
     @GetMapping
     public ResponseEntity findAll(@RequestParam(required = false) String filter,
                                   @RequestParam(defaultValue = "0") int page,
                                   @RequestParam(defaultValue = "10") int size) {
-        Page<Entrega> entregas = service.buscaTodos(filter, PageRequest.of(page, size));
-        Page<EntregaDTO> entregaDTOS = EntregaDTO.fromEntity(entregas);
-        return ResponseEntity.ok(entregaDTOS);
+        Page<Drone> Drones = service.buscaTodos(filter, PageRequest.of(page, size));
+        Page<DroneDTO> DroneDTOS = DroneDTO.fromEntity(Drones);
+        return ResponseEntity.ok(DroneDTOS);
     }
 
     @GetMapping("{id}")
     public ResponseEntity findById(@PathVariable("id") Long id) {
-        Entrega Entrega = service.buscaPorId(id);
-        return ResponseEntity.ok(Entrega);
+        Drone Drone = service.buscaPorId(id);
+        return ResponseEntity.ok(Drone);
     }
 
     @DeleteMapping("{id}")
@@ -48,12 +46,26 @@ public class EntregaController extends AbstractController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity update(@PathVariable("id") Long id, @RequestBody Entrega entity) {
+    public ResponseEntity update(@PathVariable("id") Long id, @RequestBody Drone entity) {
         try {
-            Entrega alterado = service.alterar(id, entity);
+            Drone alterado = service.alterar(id, entity);
             return ResponseEntity.ok().body(alterado);
         } catch (NotFoundException nfe) {
             return ResponseEntity.noContent().build();
+        }
+    }
+
+    private class DroneService {
+        public Drone salvar(Drone entity) {
+            return null;
+        }
+
+        public void remover(Long id) {
+
+        }
+
+        public Page<Drone> buscaTodos(String filter, PageRequest of) {
+            return null;
         }
     }
 }
