@@ -1,66 +1,47 @@
 package com.dronedelivery.apidrone.resource;
 
 import com.dronedelivery.apidrone.model.Location;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import com.dronedelivery.apidrone.model.Rota;
 import jakarta.validation.constraints.NotNull;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
+@Data
 public class RotaDTO {
 
     private Long idRota;
-
-
     private long trajeto;
-
     private int order;
-
-
-    public LocalDateTime checked;
-
-)
+    private LocalDateTime checked;
     private Location position;
 
-    public Long getIdRota() {
-        return idRota;
+    public static RotaDTO fromEntity(Rota rota) {
+        RotaDTO dto = new RotaDTO();
+        dto.setIdRota(rota.getIdRota());
+        dto.setTrajeto(rota.getTrajeto());
+        dto.setOrder(rota.getOrder());
+        dto.setChecked(rota.getChecked());
+        dto.setPosition(rota.getPosition());
+        return dto;
     }
 
-    public void setIdRota(Long idRota) {
-        this.idRota = idRota;
+    public Rota toEntity() {
+        Rota rota = new Rota();
+        rota.setIdRota(idRota);
+        rota.setTrajeto(trajeto);
+        rota.setOrder(order);
+        rota.setChecked(checked);
+        rota.setPosition(position);
+        return rota;
     }
 
-    public long getTrajeto() {
-        return trajeto;
+    public static List<RotaDTO> fromEntity(List<Rota> rotas) {
+        return rotas.stream().map(RotaDTO::fromEntity).collect(Collectors.toList());
     }
 
-    public void setTrajeto(long trajeto) {
-        this.trajeto = trajeto;
-    }
-
-    public int getOrder() {
-        return order;
-    }
-
-    public void setOrder(int order) {
-        this.order = order;
-    }
-
-    public LocalDateTime getChecked() {
-        return checked;
-    }
-
-    public void setChecked(LocalDateTime checked) {
-        this.checked = checked;
-    }
-
-    public Location getPosition() {
-        return position;
-    }
-
-    public void setPosition(Location position) {
-        this.position = position;
+    public static Page<RotaDTO> fromEntity(Page<Rota> rotas) {
+        List<RotaDTO> rotasDTO = rotas.stream().map(RotaDTO::fromEntity).collect(Collectors.toList());
+        return new PageImpl<>(rotasDTO, rotas.getPageable(), rotas.getTotalElements());
     }
 }

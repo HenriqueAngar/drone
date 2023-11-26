@@ -2,24 +2,23 @@ package com.dronedelivery.apidrone.resource;
 
 import com.dronedelivery.apidrone.model.Location;
 import com.dronedelivery.apidrone.model.TipoZonaVoo;
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotNull;
 
 public class ZonaVooDTO {
 
     private Long idZonaVoo;
 
+    @NotNull
+    private Double raio;
 
-    public double raio;
+    @NotNull
+    private Double altura;
 
+    @NotNull
+    private TipoZonaVoo zonaVoo;
 
-    public double altura;
-
-
-    public TipoZonaVoo zonaVoo;
-
-
-    public Location posicao;
+    @NotNull
+    private Location posicao;
 
     public Long getIdZonaVoo() {
         return idZonaVoo;
@@ -29,19 +28,19 @@ public class ZonaVooDTO {
         this.idZonaVoo = idZonaVoo;
     }
 
-    public double getRaio() {
+    public Double getRaio() {
         return raio;
     }
 
-    public void setRaio(double raio) {
+    public void setRaio(Double raio) {
         this.raio = raio;
     }
 
-    public double getAltura() {
+    public Double getAltura() {
         return altura;
     }
 
-    public void setAltura(double altura) {
+    public void setAltura(Double altura) {
         this.altura = altura;
     }
 

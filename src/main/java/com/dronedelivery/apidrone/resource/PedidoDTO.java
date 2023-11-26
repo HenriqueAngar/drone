@@ -1,62 +1,46 @@
 package com.dronedelivery.apidrone.resource;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import com.dronedelivery.apidrone.model.Pedido;
 import jakarta.validation.constraints.NotNull;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
+@Data
 public class PedidoDTO {
 
     private Long idPedido;
-
     private long usuario;
-
     private long entrega;
+    private LocalDateTime inicio;
+    private LocalDateTime fim;
 
-    public LocalDateTime inicio;
-
-    public LocalDateTime fim;
-
-    public Long getIdPedido() {
-        return idPedido;
+    public static PedidoDTO fromEntity(Pedido pedido) {
+        PedidoDTO dto = new PedidoDTO();
+        dto.setIdPedido(pedido.getIdPedido());
+        dto.setUsuario(pedido.getUsuario());
+        dto.setEntrega(pedido.getEntrega());
+        dto.setInicio(pedido.getInicio());
+        dto.setFim(pedido.getFim());
+        return dto;
     }
 
-    public void setIdPedido(Long idPedido) {
-        this.idPedido = idPedido;
+    public Pedido toEntity() {
+        Pedido pedido = new Pedido();
+        pedido.setIdPedido(idPedido);
+        pedido.setUsuario(usuario);
+        pedido.setEntrega(entrega);
+        pedido.setInicio(inicio);
+        pedido.setFim(fim);
+        return pedido;
     }
 
-    public long getUsuario() {
-        return usuario;
+    public static List<PedidoDTO> fromEntity(List<Pedido> pedidos) {
+        return pedidos.stream().map(PedidoDTO::fromEntity).collect(Collectors.toList());
     }
 
-    public void setUsuario(long usuario) {
-        this.usuario = usuario;
-    }
-
-    public long getEntrega() {
-        return entrega;
-    }
-
-    public void setEntrega(long entrega) {
-        this.entrega = entrega;
-    }
-
-    public LocalDateTime getInicio() {
-        return inicio;
-    }
-
-    public void setInicio(LocalDateTime inicio) {
-        this.inicio = inicio;
-    }
-
-    public LocalDateTime getFim() {
-        return fim;
-    }
-
-    public void setFim(LocalDateTime fim) {
-        this.fim = fim;
+    public static Page<PedidoDTO> fromEntity(Page<Pedido> pedidos) {
+        List<PedidoDTO> pedidosDTO = pedidos.stream().map(PedidoDTO::fromEntity).collect(Collectors.toList());
+        return new PageImpl<>(pedidosDTO, pedidos.getPageable(), pedidos.getTotalElements());
     }
 }

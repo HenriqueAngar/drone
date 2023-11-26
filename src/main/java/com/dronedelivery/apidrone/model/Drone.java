@@ -78,4 +78,7 @@ public class Drone extends Location{
     public void setEntrega(long entrega) {
         this.entrega = entrega;
     }
+
+    public long getDrone() {
+    }
 }

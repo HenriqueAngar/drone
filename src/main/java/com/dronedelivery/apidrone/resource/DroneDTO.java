@@ -1,70 +1,51 @@
 package com.dronedelivery.apidrone.resource;
 
 import com.dronedelivery.apidrone.model.Drone;
-import com.dronedelivery.apidrone.model.drone;
 import com.dronedelivery.apidrone.model.Location;
 import com.dronedelivery.apidrone.model.StatusDrone;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotNull;
+import lombok.Data;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Data
 public class DroneDTO {
 
     private Long idDrone;
     private Float bateria;
-
     private StatusDrone status;
-
     private Location posicao;
-
     private long drone;
 
-    public Long getIdDrone() {
-        return idDrone;
+    public static DroneDTO fromEntity(Drone drone) {
+        DroneDTO dto = new DroneDTO();
+        dto.setIdDrone(drone.getIdDrone());
+        dto.setBateria(drone.getBateria());
+        dto.setStatus(drone.getStatus());
+        dto.setPosicao(drone.getPosicao());
+        dto.setDrone(drone.getDrone());
+        return dto;
     }
 
-    public void setIdDrone(Long idDrone) {
-        this.idDrone = idDrone;
-    }
-
-    public Float getBateria() {
-        return bateria;
-    }
-
-    public void setBateria(Float bateria) {
-        this.bateria = bateria;
-    }
-
-    public StatusDrone getStatus() {
-        return status;
-    }
-
-    public void setStatus(StatusDrone status) {
-        this.status = status;
-    }
-
-    public Location getPosicao() {
-        return posicao;
-    }
-
-    public void setPosicao(Location posicao) {
-        this.posicao = posicao;
-    }
-
-    public long getdrone() {
+    public Drone toEntity() {
+        Drone drone = new Drone();
+        drone.setIdDrone(idDrone);
+        drone.setBateria(bateria);
+        drone.setStatus(status);
+        drone.setPosicao(posicao);
+        drone.setDrone(drone);
         return drone;
     }
 
-    public void setdrone(long drone) {
-        this.drone = drone;
+    public static List<DroneDTO> fromEntity(List<Drone> drones) {
+        return drones.stream().map(DroneDTO::fromEntity).collect(Collectors.toList());
     }
 
-
+    public static Page<DroneDTO> fromEntity(Page<Drone> drones) {
+        List<DroneDTO> dronesDTO = drones.stream().map(DroneDTO::fromEntity).collect(Collectors.toList());
+        return new PageImpl<>(dronesDTO, drones.getPageable(), drones.getTotalElements());
+    }
 }
