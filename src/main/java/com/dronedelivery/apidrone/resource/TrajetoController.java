@@ -4,6 +4,7 @@ package com.dronedelivery.apidrone.resource;
 import com.dronedelivery.apidrone.entreprise.NotFoundException;
 import com.dronedelivery.apidrone.model.Trajeto;
 import com.dronedelivery.apidrone.service.TrajetoService;
+import com.dronedelivery.apidrone.services.TrajetoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

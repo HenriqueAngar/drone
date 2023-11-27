@@ -1,7 +1,7 @@
 package com.dronedelivery.apidrone.resource;
 
 import com.dronedelivery.apidrone.model.Usuario;
-import jakarta.validation.constraints.NotNull;
+//import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

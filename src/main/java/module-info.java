@@ -5,4 +5,6 @@ module api.drone {
     requires spring.data.commons;
     requires modelmapper;
     requires org.hibernate.orm.core;
+    requires lombok;
+    requires jakarta.validation;
 }
