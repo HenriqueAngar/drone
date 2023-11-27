@@ -1,5 +1,6 @@
 import com.dronedelivery.apidrone.entreprise.NotFoundException;
 import com.dronedelivery.apidrone.model.Pedido;
+import com.dronedelivery.apidrone.resource.AbstractController;
 import com.dronedelivery.apidrone.resource.PedidoDTO;
 import com.dronedelivery.apidrone.services.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.AbstractController;
+
 
 import java.net.URI;
 
