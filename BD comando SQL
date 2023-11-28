@@ -1,0 +1,62 @@
+CREATE TABLE Entrega (
+    IDEntrega BIGINT NOT NULL,
+    Nome VARCHAR(255) NOT NULL,
+    Peso DECIMAL(14,2) NOT NULL,
+    StatusEntrega BIGINT NOT NULL,
+    OBS VARCHAR(255),
+    Trajeto BIGINT NOT NULL,
+    IdRota BIGINT NOT NULL,
+    PRIMARY KEY (IDEntrega)
+);
+
+CREATE TABLE ZonaVoo (
+    Raio BIGINT NOT NULL,
+    Size DECIMAL(14,2) NOT NULL,
+    TipoZonaVoo INT NOT NULL,
+    Latitude DECIMAL(14,2) NOT NULL,
+    Longitude DECIMAL(14,2) NOT NULL,
+    Altura DECIMAL(14,2) NOT NULL,
+    PRIMARY KEY (Raio)
+);
+
+CREATE TABLE Drone (
+    IDDrone BIGINT NOT NULL,
+    Latitude DECIMAL(14,2) NOT NULL,
+    Longitude DECIMAL(14,2) NOT NULL,
+    Altura DECIMAL(14,2) NOT NULL,
+    Bateria DECIMAL(14,2) NOT NULL,
+    Status BIGINT NOT NULL,
+    IDEntrega BIGINT NOT NULL,
+    PRIMARY KEY (IDDrone),
+    FOREIGN KEY (IDEntrega) REFERENCES Entrega(IDEntrega)
+);
+
+CREATE TABLE DadosDoTrajeto (
+    ID BIGINT NOT NULL,
+    Latitude_partida DECIMAL(14,2) NOT NULL,
+    Longitude_partida DECIMAL(14,2) NOT NULL,
+    Altura_partida DECIMAL(14,2) NOT NULL,
+    Latitude_chegada DECIMAL(14,2) NOT NULL,
+    Longitude_chegada DECIMAL(14,2) NOT NULL,
+    Altura_chegada DECIMAL(14,2) NOT NULL,
+    Distancia DECIMAL(14,2) NOT NULL,
+    Velocidade DECIMAL(14,2) NOT NULL,
+    PRIMARY KEY (ID)
+);
+
+CREATE TABLE Usuario (
+    ID BIGINT NOT NULL,
+    Nome VARCHAR(255) NOT NULL,
+    Senha VARCHAR(255) NOT NULL,
+    Role VARCHAR(255) NOT NULL,
+    PRIMARY KEY (ID)
+);
+
+CREATE TABLE Rota (
+    ID DECIMAL(14,2) NOT NULL,
+    Location VARCHAR(255) NOT NULL,
+    Cheket BOOLEAN NOT NULL,
+    Pk_dadosDoTrajeto BIGINT NOT NULL,
+    PRIMARY KEY (ID),
+    FOREIGN KEY (Pk_dadosDoTrajeto) REFERENCES DadosDoTrajeto(ID)
+);
