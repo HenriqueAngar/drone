@@ -1,0 +1,67 @@
+// Use DBML to define your database structure 
+// Docs: https://dbml.dbdiagram.io/docs
+
+Table Entrega { 
+  IDEntrega bigint [primary key, not null] 
+  Nome varchar(255) 
+  Peso decimal(14,2) 
+  StatusEntrega bigint [not null] 
+  OBS varchar(255) 
+  PK_IDTrajeto bigint [not null] 
+}
+
+Table ZonaVoo { 
+  IDZonaVoo bigint [primary key, not null] 
+  Raio bigint [not null] 
+  Size decimal(14,2) [not null] 
+  TipoZonaVoo int [not null] 
+  Latitude decimal(14,2) [not null] 
+  Longitude decimal(14,2) [not null] 
+  Altura decimal(14,2) [not null] 
+}
+
+Table Drone { 
+  IDDrone bigint [primary key, not null] 
+  Latitude decimal(14,2) [not null] 
+  Longitude decimal(14,2) [not null] 
+  Altura decimal(14,2) [not null] 
+  Bateria decimal(14,2) [not null] 
+  Status bigint [not null] 
+  PK_IDEntrega bigint [not null] 
+}
+
+Table DadosDoTrajeto { 
+  IDTrajeto bigint [primary key, not null] 
+  Latitude_partida decimal(14,2) [not null] 
+  Longitude_partida decimal(14,2) [not null] 
+  Altura_partida decimal(14,2) [not null] 
+  Latitude_chegada decimal(14,2) [not null] 
+  Longitude_chegada decimal(14,2) [not null] 
+  Altura_chegada decimal(14,2) [not null] 
+  Distancia decimal(14,2) [not null] 
+  Velocidade decimal(14,2) [not null] 
+}
+
+Table Usuario { 
+  IDUsuario bigint [primary key, not null] 
+  Nome varchar(255) [not null] 
+  Senha varchar(255) [not null] 
+  Role varchar(255) [not null] 
+}
+
+Table Rota { 
+  IDRota decimal(14,2) [primary key, not null] 
+  Latitude decimal(14,2) [not null] 
+  Longitude decimal(14,2) [not null] 
+  Altura decimal(14,2) [not null] 
+  Cheket boolean [not null] 
+  Pk_IDTrajeto bigint [not null] 
+}
+
+Ref: Drone.PK_IDEntrega > Entrega.IDEntrega // many-to-one
+
+Ref: Rota.Pk_IDTrajeto > DadosDoTrajeto.IDTrajeto // many-to-one
+
+Ref: Entrega.PK_IDTrajeto - DadosDoTrajeto.IDTrajeto // one-to-one
+
+https://lucid.app/lucidchart/36b572f3-5849-405b-9cb7-76e8f4f56a0e/edit?page=0_0&invitationId=inv_cba30a9a-c685-45d6-9c7f-1fe8ae531f9d#
