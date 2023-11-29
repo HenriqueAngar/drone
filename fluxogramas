@@ -1,0 +1,130 @@
+// Use DBML to define your database structure 
+// Docs: https://dbml.dbdiagram.io/docs
+
+Table Entrega { 
+  IDEntrega bigint [primary key, not null] 
+  Nome varchar(255) 
+  Peso decimal(14,2) 
+  StatusEntrega bigint [not null] 
+  OBS varchar(255) 
+  PK_IDTrajeto bigint [not null] 
+}
+
+Table ZonaVoo { 
+  IDZonaVoo bigint [primary key, not null] 
+  Raio bigint [not null] 
+  Size decimal(14,2) [not null] 
+  TipoZonaVoo int [not null] 
+  Latitude decimal(14,2) [not null] 
+  Longitude decimal(14,2) [not null] 
+  Altura decimal(14,2) [not null] 
+}
+
+Table Drone { 
+  IDDrone bigint [primary key, not null] 
+  Latitude decimal(14,2) [not null] 
+  Longitude decimal(14,2) [not null] 
+  Altura decimal(14,2) [not null] 
+  Bateria decimal(14,2) [not null] 
+  Status bigint [not null] 
+  PK_IDEntrega bigint [not null] 
+}
+
+Table DadosDoTrajeto { 
+  IDTrajeto bigint [primary key, not null] 
+  Latitude_partida decimal(14,2) [not null] 
+  Longitude_partida decimal(14,2) [not null] 
+  Altura_partida decimal(14,2) [not null] 
+  Latitude_chegada decimal(14,2) [not null] 
+  Longitude_chegada decimal(14,2) [not null] 
+  Altura_chegada decimal(14,2) [not null] 
+  Distancia decimal(14,2) [not null] 
+  Velocidade decimal(14,2) [not null] 
+}
+
+Table Usuario { 
+  IDUsuario bigint [primary key, not null] 
+  Nome varchar(255) [not null] 
+  Senha varchar(255) [not null] 
+  Role varchar(255) [not null] 
+}
+
+Table Rota { 
+  IDRota decimal(14,2) [primary key, not null] 
+  Latitude decimal(14,2) [not null] 
+  Longitude decimal(14,2) [not null] 
+  Altura decimal(14,2) [not null] 
+  Cheket boolean [not null] 
+  Pk_IDTrajeto bigint [not null] 
+}
+
+Ref: Drone.PK_IDEntrega > Entrega.IDEntrega // many-to-one
+
+Ref: Rota.Pk_IDTrajeto > DadosDoTrajeto.IDTrajeto // many-to-one
+
+Ref: Entrega.PK_IDTrajeto - DadosDoTrajeto.IDTrajeto // one-to-one
+
+https://lucid.app/lucidchart/36b572f3-5849-405b-9cb7-76e8f4f56a0e/edit?page=0_0&invitationId=inv_cba30a9a-c685-45d6-9c7f-1fe8ae531f9d#
+
+CREATE TABLE Entrega (
+    IDEntrega BIGINT NOT NULL,
+    Nome VARCHAR(255) NOT NULL,
+    Peso DECIMAL(14,2) NOT NULL,
+    StatusEntrega BIGINT NOT NULL,
+    OBS VARCHAR(255),
+    Trajeto BIGINT NOT NULL,
+    IdRota BIGINT NOT NULL,
+    PRIMARY KEY (IDEntrega)
+);
+
+CREATE TABLE ZonaVoo (
+    Raio BIGINT NOT NULL,
+    Size DECIMAL(14,2) NOT NULL,
+    TipoZonaVoo INT NOT NULL,
+    Latitude DECIMAL(14,2) NOT NULL,
+    Longitude DECIMAL(14,2) NOT NULL,
+    Altura DECIMAL(14,2) NOT NULL,
+    PRIMARY KEY (Raio)
+);
+
+CREATE TABLE Drone (
+    IDDrone BIGINT NOT NULL,
+    Latitude DECIMAL(14,2) NOT NULL,
+    Longitude DECIMAL(14,2) NOT NULL,
+    Altura DECIMAL(14,2) NOT NULL,
+    Bateria DECIMAL(14,2) NOT NULL,
+    Status BIGINT NOT NULL,
+    IDEntrega BIGINT NOT NULL,
+    PRIMARY KEY (IDDrone),
+    FOREIGN KEY (IDEntrega) REFERENCES Entrega(IDEntrega)
+);
+
+CREATE TABLE DadosDoTrajeto (
+    ID BIGINT NOT NULL,
+    Latitude_partida DECIMAL(14,2) NOT NULL,
+    Longitude_partida DECIMAL(14,2) NOT NULL,
+    Altura_partida DECIMAL(14,2) NOT NULL,
+    Latitude_chegada DECIMAL(14,2) NOT NULL,
+    Longitude_chegada DECIMAL(14,2) NOT NULL,
+    Altura_chegada DECIMAL(14,2) NOT NULL,
+    Distancia DECIMAL(14,2) NOT NULL,
+    Velocidade DECIMAL(14,2) NOT NULL,
+    PRIMARY KEY (ID)
+);
+
+CREATE TABLE Usuario (
+    ID BIGINT NOT NULL,
+    Nome VARCHAR(255) NOT NULL,
+    Senha VARCHAR(255) NOT NULL,
+    Role VARCHAR(255) NOT NULL,
+    PRIMARY KEY (ID)
+);
+
+CREATE TABLE Rota (
+    ID DECIMAL(14,2) NOT NULL,
+    Location VARCHAR(255) NOT NULL,
+    Cheket BOOLEAN NOT NULL,
+    Pk_dadosDoTrajeto BIGINT NOT NULL,
+    PRIMARY KEY (ID),
+    FOREIGN KEY (Pk_dadosDoTrajeto) REFERENCES DadosDoTrajeto(ID)
+);
