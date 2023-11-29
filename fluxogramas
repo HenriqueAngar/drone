@@ -65,6 +65,7 @@ Ref: Rota.Pk_IDTrajeto > DadosDoTrajeto.IDTrajeto // many-to-one
 Ref: Entrega.PK_IDTrajeto - DadosDoTrajeto.IDTrajeto // one-to-one
 
 https://lucid.app/lucidchart/36b572f3-5849-405b-9cb7-76e8f4f56a0e/edit?page=0_0&invitationId=inv_cba30a9a-c685-45d6-9c7f-1fe8ae531f9d#
+Se precisar de acesso ao lucid chard com todos os fluxograma e slide solicitar atravez do e-mail ou whatsapp
 
 CREATE TABLE Entrega (
     IDEntrega BIGINT NOT NULL,
